@@ -14,5 +14,4 @@ public interface FruitService {
     FruitRequestDto getById (Long id);
     List<FruitRequestDto> getAll();
 
-
 }
