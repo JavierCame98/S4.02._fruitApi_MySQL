@@ -4,6 +4,8 @@ package cat.itacademy.s04.t02.n02.fruit.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "providers")
 @Getter

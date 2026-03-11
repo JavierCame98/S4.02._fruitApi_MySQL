@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface FruitRepository extends JpaRepository <Fruit, Long> {
-
+    boolean existsByName(String name);
     List<Fruit> filterByProviderId (Long providerId);
     boolean existsByProviderId (Long providerId);
 }
