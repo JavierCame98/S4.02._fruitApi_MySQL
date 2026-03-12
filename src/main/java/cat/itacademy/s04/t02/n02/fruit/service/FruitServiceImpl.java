@@ -11,8 +11,10 @@ import cat.itacademy.s04.t02.n02.fruit.repositories.FruitRepository;
 import cat.itacademy.s04.t02.n02.fruit.repositories.ProviderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,22 +40,49 @@ public class FruitServiceImpl implements FruitService{
     }
 
     @Override
+    @Transactional
     public FruitResponseDto update(Long id, FruitRequestDto fruitRequestDto) {
-        return null;
+        Fruit fruit = fruitRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("This fruit doesn't exists: ", id));
+
+        fruitRepository.findByName(fruitRequestDto.name())
+                .filter(foundFruit -> !foundFruit.getId().equals(id))
+                .ifPresent(f -> {
+                    throw new EntityAlreadyExistsException("The name " + fruitRequestDto.name() + " is already taken by another fruit");
+                });
+
+        Provider provider = providerRepository.findById(fruitRequestDto.providerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Provider", fruitRequestDto.providerId()));
+
+        fruit.setName(fruitRequestDto.name());
+        fruit.setWeightKg(fruitRequestDto.weightKg());
+        fruit.setProvider(provider);
+
+        Fruit updatedFruit = fruitRepository.save(fruit);
+
+        return fruitMapper.toResponseDto(updatedFruit);
     }
 
     @Override
     public void delete(Long id) {
+        if(!fruitRepository.existsById(id)){
+            throw new ResourceNotFoundException("Cannot delete, ID not found: ", id);
+        }
+        fruitRepository.deleteById(id);
 
     }
 
     @Override
-    public FruitRequestDto getById(Long id) {
-        return null;
+    public FruitResponseDto getById(Long id) {
+        return fruitRepository.findById(id)
+                .map(fruitMapper::toResponseDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found ID: ", id));
     }
 
     @Override
-    public List<FruitRequestDto> getAll() {
-        return List.of();
+    public List<FruitResponseDto> getAll() {
+        return fruitRepository.findAll().stream()
+                .map(fruitMapper::toResponseDto)
+                .toList();
     }
 }
