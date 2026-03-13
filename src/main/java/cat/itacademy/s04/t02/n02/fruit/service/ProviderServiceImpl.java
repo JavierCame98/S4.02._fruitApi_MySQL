@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -58,11 +59,15 @@ public class ProviderServiceImpl implements ProviderService{
 
     @Override
     public ProviderResponseDto getById(Long id) {
-        return null;
+        return providerRepository.findById(id)
+                .map(providerMapper::toResponseDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found ID: ", id));
     }
 
     @Override
     public List<ProviderResponseDto> getAll() {
-        return List.of();
+        return providerRepository.findAll().stream()
+                .map(providerMapper::toResponseDto)
+                .toList();
     }
 }
