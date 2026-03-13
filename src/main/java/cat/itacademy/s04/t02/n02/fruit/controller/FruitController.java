@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping ("/fruits")
@@ -45,7 +46,16 @@ public class FruitController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping
+    public ResponseEntity<List<FruitResponseDto>> getAll (){
+        List<FruitResponseDto> fruits = fruitServiceImpl.getAll();
+        return ResponseEntity.ok(fruits);
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<FruitResponseDto> getById (@PathVariable Long id){
+        return ResponseEntity.ok(fruitServiceImpl.getById(id));
+    }
 
 
 }
