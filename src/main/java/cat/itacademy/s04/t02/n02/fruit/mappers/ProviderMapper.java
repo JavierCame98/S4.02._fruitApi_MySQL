@@ -16,7 +16,7 @@ public class ProviderMapper {
                 .build();
     }
 
-    public ProviderResponseDto toDto (Provider provider){
+    public ProviderResponseDto toResponseDto (Provider provider){
         return new ProviderResponseDto(
                 provider.getId(),
                 provider.getName(),

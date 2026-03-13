@@ -5,6 +5,7 @@ import cat.itacademy.s04.t02.n02.fruit.model.FruitRequestDto;
 import cat.itacademy.s04.t02.n02.fruit.model.FruitResponseDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FruitService {
 
