@@ -7,10 +7,7 @@ import cat.itacademy.s04.t02.n02.fruit.service.FruitServiceImpl;
 import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -28,14 +25,27 @@ public class FruitController {
     public ResponseEntity<FruitResponseDto> create (@Valid @RequestBody FruitRequestDto fruitRequestDto){
         FruitResponseDto createdFruit = fruitServiceImpl.create(fruitRequestDto);
 
-        URI lcoation = ServletUriComponentsBuilder
+        URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(createdFruit.id())
                 .toUri();
 
-        return ResponseEntity.created(lcoation).body(createdFruit);
+        return ResponseEntity.created(location).body(createdFruit);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FruitResponseDto> update (@PathVariable Long id, @Valid @RequestBody FruitRequestDto fruitDto){
+        return ResponseEntity.ok(fruitServiceImpl.update(id, fruitDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete (@PathVariable Long id){
+        fruitServiceImpl.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 }
