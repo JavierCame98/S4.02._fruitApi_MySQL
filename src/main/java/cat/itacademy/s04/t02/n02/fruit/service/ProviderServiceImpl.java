@@ -49,6 +49,10 @@ public class ProviderServiceImpl implements ProviderService{
 
     @Override
     public void delete(Long id) {
+       if(!providerRepository.existsById(id)){
+           throw new ResourceNotFoundException("Cannot delete, ID not found: ", id);
+       }
+       providerRepository.deleteById(id);
 
     }
 
