@@ -35,24 +35,24 @@ public class FruitController {
         return ResponseEntity.created(location).body(createdFruit);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<FruitResponseDto> update (@PathVariable Long id, @Valid @RequestBody FruitRequestDto fruitDto){
         return ResponseEntity.ok(fruitServiceImpl.update(id, fruitDto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete (@PathVariable Long id){
         fruitServiceImpl.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<FruitResponseDto>> getAll (){
         List<FruitResponseDto> fruits = fruitServiceImpl.getAll();
         return ResponseEntity.ok(fruits);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getOne/{id}")
     public ResponseEntity<FruitResponseDto> getById (@PathVariable Long id){
         return ResponseEntity.ok(fruitServiceImpl.getById(id));
     }
