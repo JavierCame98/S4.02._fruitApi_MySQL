@@ -48,6 +48,12 @@ public class ProviderServiceImpl implements ProviderService{
         return providerMapper.toResponseDto(providerUpdated);
     }
 
+
+    //en este método podríamos preguntar primero si el proveedor tiene frutas asignas y si es así no te deja borrarlo:
+    //if (provider.getFruits() != null && !provider.getFruits().isEmpty()) {
+    //        throw new IllegalStateException("Cannot delete provider: It has associated fruits. Please reassign or delete the fruits first.");
+    //        // Nota: Podrías crear una excepción personalizada para esto, ej: EntityInUseException
+    //    }
     @Override
     public void delete(Long id) {
        if(!providerRepository.existsById(id)){
