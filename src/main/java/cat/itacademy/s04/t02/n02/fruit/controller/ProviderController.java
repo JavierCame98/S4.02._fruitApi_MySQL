@@ -5,10 +5,7 @@ import cat.itacademy.s04.t02.n02.fruit.model.ProviderResponseDto;
 import cat.itacademy.s04.t02.n02.fruit.service.ProviderServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -34,5 +31,10 @@ public class ProviderController {
                 .toUri();
 
         return ResponseEntity.created(location).body(createdProvider);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ProviderResponseDto> update (@PathVariable Long id, @Valid @RequestBody ProviderRequestDto providerRequestDto){
+        return ResponseEntity.ok(providerServiceImpl.update(id, providerRequestDto));
     }
 }
