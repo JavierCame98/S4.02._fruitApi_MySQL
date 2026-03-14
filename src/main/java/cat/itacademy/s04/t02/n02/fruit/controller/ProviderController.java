@@ -37,4 +37,12 @@ public class ProviderController {
     public ResponseEntity<ProviderResponseDto> update (@PathVariable Long id, @Valid @RequestBody ProviderRequestDto providerRequestDto){
         return ResponseEntity.ok(providerServiceImpl.update(id, providerRequestDto));
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete (@PathVariable Long id){
+        providerServiceImpl.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
