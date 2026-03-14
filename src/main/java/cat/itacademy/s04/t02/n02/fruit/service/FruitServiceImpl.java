@@ -85,4 +85,15 @@ public class FruitServiceImpl implements FruitService{
                 .map(fruitMapper::toResponseDto)
                 .toList();
     }
+
+    @Override
+    public List<FruitResponseDto> getFruitsByProviderId(Long providerId) {
+        if (!providerRepository.existsById(providerId)) {
+            throw new ResourceNotFoundException("Provider not found with ID: ",providerId);
+        }
+        return fruitRepository.findByProviderId(providerId)
+                .stream()
+                .map(fruitMapper::toResponseDto)
+                .toList();
+    }
 }

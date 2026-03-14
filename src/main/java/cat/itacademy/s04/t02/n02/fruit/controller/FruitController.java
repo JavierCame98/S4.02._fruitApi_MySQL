@@ -52,6 +52,12 @@ public class FruitController {
         return ResponseEntity.ok(fruits);
     }
 
+    @GetMapping
+    public ResponseEntity<List<FruitResponseDto>> getFruitsByProvider (@RequestParam(name = "providerID") Long id){
+        List<FruitResponseDto> fruitList = fruitServiceImpl.getFruitsByProviderId(id);
+        return ResponseEntity.ok(fruitList);
+    }
+
     @GetMapping("/getOne/{id}")
     public ResponseEntity<FruitResponseDto> getById (@PathVariable Long id){
         return ResponseEntity.ok(fruitServiceImpl.getById(id));

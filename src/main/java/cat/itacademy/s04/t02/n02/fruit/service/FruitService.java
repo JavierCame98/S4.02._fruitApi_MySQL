@@ -14,5 +14,6 @@ public interface FruitService {
     void delete (Long id);
     FruitResponseDto getById (Long id);
     List<FruitResponseDto> getAll();
+    List<FruitResponseDto> getFruitsByProviderId(Long providerId);
 
 }

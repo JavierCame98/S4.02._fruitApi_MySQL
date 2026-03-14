@@ -13,4 +13,5 @@ public interface FruitRepository extends JpaRepository <Fruit, Long> {
     List<Fruit> filterByProviderId (Long providerId);
     boolean existsByProviderId (Long providerId);
     Optional<Fruit> findByName(String name);
+    List<Fruit> findByProviderId(Long providerId);
 }
