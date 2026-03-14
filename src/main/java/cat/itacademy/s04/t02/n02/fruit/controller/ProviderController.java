@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/providers")
@@ -33,7 +34,7 @@ public class ProviderController {
         return ResponseEntity.created(location).body(createdProvider);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ProviderResponseDto> update (@PathVariable Long id, @Valid @RequestBody ProviderRequestDto providerRequestDto){
         return ResponseEntity.ok(providerServiceImpl.update(id, providerRequestDto));
     }
@@ -42,6 +43,18 @@ public class ProviderController {
     public ResponseEntity<Void> delete (@PathVariable Long id){
         providerServiceImpl.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<ProviderResponseDto>> getAll(){
+        List<ProviderResponseDto> providersList = providerServiceImpl.getAll();
+        return ResponseEntity.ok(providersList);
+    }
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<ProviderResponseDto> getById (@PathVariable Long id){
+        ProviderResponseDto getProvider = providerServiceImpl.getById(id);
+        return ResponseEntity.ok(getProvider);
     }
 
 
