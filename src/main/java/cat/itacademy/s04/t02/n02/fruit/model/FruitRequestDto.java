@@ -6,8 +6,6 @@ import jakarta.validation.constraints.Positive;
 
 public record FruitRequestDto(
 
-        Long id,
-
         @NotBlank(message = "Name can't be empty")
         String name,
 

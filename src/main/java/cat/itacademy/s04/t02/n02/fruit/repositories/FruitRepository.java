@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface FruitRepository extends JpaRepository <Fruit, Long> {
     boolean existsByName(String name);
-    List<Fruit> filterByProviderId (Long providerId);
     boolean existsByProviderId (Long providerId);
     Optional<Fruit> findByName(String name);
     List<Fruit> findByProviderId(Long providerId);
