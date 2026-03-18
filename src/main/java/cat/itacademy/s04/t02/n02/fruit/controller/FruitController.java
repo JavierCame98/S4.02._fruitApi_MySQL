@@ -53,7 +53,7 @@ public class FruitController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FruitResponseDto>> getFruitsByProvider (@RequestParam(name = "providerID") Long id){
+    public ResponseEntity<List<FruitResponseDto>> getFruitsByProvider (@RequestParam(name = "providerId") Long id){
         List<FruitResponseDto> fruitList = fruitServiceImpl.getFruitsByProviderId(id);
         return ResponseEntity.ok(fruitList);
     }

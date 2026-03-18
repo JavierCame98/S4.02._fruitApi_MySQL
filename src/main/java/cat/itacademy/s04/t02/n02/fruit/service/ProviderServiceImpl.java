@@ -25,7 +25,7 @@ public class ProviderServiceImpl implements ProviderService{
     @Override
     public ProviderResponseDto create(ProviderRequestDto providerRequestDto) {
         providerRepository.findByName(providerRequestDto.name())
-                .ifPresent( fruit -> { throw new EntityAlreadyExistsException("This fruit already exists: " + providerRequestDto.name());
+                .ifPresent( fruit -> { throw new EntityAlreadyExistsException("This provider already exists: " + providerRequestDto.name());
                 });
         Provider provider = providerMapper.toEntity(providerRequestDto);
         Provider savedProvider = providerRepository.save(provider);

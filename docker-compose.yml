@@ -25,7 +25,7 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      DB_URL: jdbc:mysql://mysql:3308/fruitdb
+      DB_URL: jdbc:mysql://mysql:3306/fruitdb
       DB_USER: root
       DB_PASSWORD: root
 

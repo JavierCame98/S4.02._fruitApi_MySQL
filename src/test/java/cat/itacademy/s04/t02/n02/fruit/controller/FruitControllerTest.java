@@ -152,7 +152,7 @@ class FruitControllerTest {
     void getFruitsByProvider_ShouldReturn200Ok() throws Exception {
         when(fruitService.getFruitsByProviderId(1L)).thenReturn(fruitList);
 
-        mockMvc.perform(get("/fruits").param("providerID", "1"))
+        mockMvc.perform(get("/fruits").param("providerId", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("Apple"));
     }
